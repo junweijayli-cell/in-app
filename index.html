@@ -4,26 +4,28 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#17342d" />
-    <meta http-equiv="refresh" content="0; url=https://zhihui.kodiafurniture.com/" />
-    <link rel="canonical" href="https://zhihui.kodiafurniture.com/" />
-    <title>智慧之光 · 正在打开</title>
-    <script>window.location.replace('https://zhihui.kodiafurniture.com/');</script>
+    <meta name="description" content="智慧之光成长同行公开演示：目标、晨间立言、晚间复盘与支持需求。" />
+    <title>智慧之光 · 成长同行</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%2317342d'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-size='38' fill='%23dba94e'%3E%E5%85%89%3C/text%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="./app/globals.css" />
     <style>
-      :root { color-scheme: light; font-family: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; }
-      body { display: grid; min-height: 100vh; margin: 0; place-items: center; background: #f5f2e9; color: #17342d; }
-      main { max-width: 28rem; padding: 2rem; text-align: center; }
-      .mark { display: grid; width: 4rem; height: 4rem; margin: 0 auto 1.25rem; place-items: center; border-radius: 1.25rem; background: #17342d; color: #dba94e; font: 2rem Georgia, "Songti SC", serif; }
-      h1 { margin: 0; font: 500 2rem Georgia, "Songti SC", serif; }
-      p { margin: .75rem 0 1.5rem; color: #6d7c75; line-height: 1.7; }
-      a { display: inline-block; border-radius: 999px; background: #28594b; padding: .8rem 1.15rem; color: white; font-weight: 700; text-decoration: none; }
+      .local-badge { display:flex; align-items:center; gap:6px; color:var(--muted); font-size:10px; white-space:nowrap; }
+      .local-badge::before { width:7px; height:7px; border-radius:50%; background:#55a06d; box-shadow:0 0 0 4px rgba(85,160,109,.12); content:""; }
+      .utility-button { border:1px solid var(--line); border-radius:999px; background:var(--white); padding:8px 11px; color:var(--muted); font-size:9px; font-weight:800; }
+      .empty-state { border:1px dashed var(--line); border-radius:18px; padding:24px; color:var(--muted); font-size:11px; line-height:1.7; text-align:center; }
+      .static-note { margin:14px 0 0; border-radius:15px; background:#ece6d8; padding:12px 14px; color:var(--muted); font-size:9px; line-height:1.65; }
+      .range-row { display:grid; grid-template-columns:1fr auto; align-items:center; gap:12px; }
+      .range-row output { min-width:42px; border-radius:999px; background:var(--paper-2); padding:6px 9px; text-align:center; font-size:10px; font-weight:800; }
+      .demo-actions { display:flex; align-items:center; gap:8px; }
+      .source-grid { grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); }
+      .queue-actions .primary-small { color:white; }
+      [hidden] { display:none !important; }
+      @media (max-width:619px) { .local-badge,.utility-button { display:none; } .demo-banner { align-items:flex-start; flex-direction:column; } }
     </style>
   </head>
   <body>
-    <main>
-      <div class="mark">光</div>
-      <h1>智慧之光</h1>
-      <p>正在打开成长同行应用。不需要任何账户登录。</p>
-      <a href="https://zhihui.kodiafurniture.com/">进入应用</a>
-    </main>
+    <div id="app"><main class="loading-page"><div class="loading-mark pulse">光</div><p>正在打开成长记录…</p></main></div>
+    <noscript><main class="loading-page"><div class="loading-mark">光</div><h1>请开启 JavaScript</h1><p>本演示完全在你的设备上运行，不需要登录。</p></main></noscript>
+    <script src="./github-demo.js" defer></script>
   </body>
 </html>

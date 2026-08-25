@@ -1,5 +1,3 @@
-@import 'tailwindcss';
-
 :root {
   --paper: #f5f2e9; --paper-2: #e9e4d8; --white: #fffefa; --ink: #17342d;
   --muted: #6d7c75; --jade: #28594b; --jade-2: #3c7463; --gold: #dba94e;
