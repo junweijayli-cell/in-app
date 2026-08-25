@@ -29,6 +29,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .role-switch { display: grid; grid-template-columns: 1fr 1fr; border-radius: 99px; background: var(--paper-2); padding: 3px; }
 .role-switch button { border: 0; border-radius: 99px; background: none; padding: 7px 9px; color: var(--muted); font-size: 10px; white-space: nowrap; }
 .role-switch button.active { background: var(--white); color: var(--ink); font-weight: 800; box-shadow: 0 4px 12px rgba(23,52,45,.08); }
+.demo-banner { display: flex; align-items: center; justify-content: center; gap: 9px; background: #f3dfb8; padding: 8px 18px; color: #6f531b; font-size: 9px; line-height: 1.5; text-align: center; }.demo-banner b { flex: 0 0 auto; border-radius: 99px; background: rgba(111,83,27,.11); padding: 4px 7px; letter-spacing: .06em; }
 .student-page { width: min(100%, 880px); margin: 0 auto; padding: 28px 18px 116px; }
 .view-enter { animation: enter .32s ease-out both; }
 @keyframes enter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }

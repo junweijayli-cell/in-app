@@ -1,4 +1,4 @@
-import type { ChatGPTUser } from '@/app/chatgpt-auth';
+import type { AppUser } from '@/app/demo-user';
 import { ensureDatabase, getD1 } from './index';
 
 type ProfileRow = {
@@ -123,19 +123,19 @@ function weightedProgress(goalRows: GoalRow[]) {
   return Math.round(active.reduce((sum, goal) => sum + goalProgress(goal) * goal.weight, 0) / totalWeight);
 }
 
-export async function ensureCurrentUser(user: ChatGPTUser) {
+export async function ensureCurrentUser(user: AppUser) {
   await ensureDatabase();
   const db = getD1();
   let profile = await db.prepare('SELECT * FROM profiles WHERE id = ?').bind(user.userId).first<ProfileRow>();
   if (!profile) {
     const realCount = await db.prepare('SELECT COUNT(*) AS count FROM profiles WHERE is_demo = 0').first<{ count: number }>();
-    const role = Number(realCount?.count ?? 0) === 0 ? 'tutor' : 'student';
+    const role = user.isDemo || Number(realCount?.count ?? 0) === 0 ? 'tutor' : 'student';
     const stamp = nowIso();
     const displayName = user.fullName || user.email.split('@')[0] || '智慧学员';
     await db.prepare(`INSERT INTO profiles
       (id, email, name, role, cohort, is_demo, allow_tutor_access, allow_ai_summary, allow_anonymized_stats, created_at, updated_at)
-      VALUES (?, ?, ?, ?, ?, 0, 1, 0, 1, ?, ?)`)
-      .bind(user.userId, user.email, displayName, role, cohortName, stamp, stamp).run();
+      VALUES (?, ?, ?, ?, ?, ?, 1, 0, 1, ?, ?)`)
+      .bind(user.userId, user.email, displayName, role, cohortName, user.isDemo ? 1 : 0, stamp, stamp).run();
     profile = await db.prepare('SELECT * FROM profiles WHERE id = ?').bind(user.userId).first<ProfileRow>();
     await seedStarterForUser(user.userId);
   }
@@ -249,7 +249,7 @@ async function seedDemoCohort() {
   await db.batch(dataStatements);
 }
 
-export async function getBootstrap(user: ChatGPTUser) {
+export async function getBootstrap(user: AppUser) {
   const profileRow = await ensureCurrentUser(user);
   const db = getD1();
   const today = chinaDate();

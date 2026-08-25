@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server';
-import { getChatGPTUser } from '@/app/chatgpt-auth';
+import { getAppUser } from '@/app/demo-user';
 import { getBootstrap } from '@/db/app-data';
 
 export async function GET() {
-  const user = await getChatGPTUser();
-  if (!user) return NextResponse.json({ error: '请先登录。' }, { status: 401 });
+  const user = await getAppUser();
   try {
     return NextResponse.json(await getBootstrap(user));
   } catch (error) {

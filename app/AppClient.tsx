@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState, type FormEvent, type ReactNode, type CSSP
 
 type Tab = 'today' | 'goals' | 'growth' | 'support';
 type Modal = 'morning' | 'evening' | 'new-goal' | 'update-goal' | 'support' | 'outreach' | 'source' | null;
-type Profile = { id: string; email: string; name: string; role: 'student' | 'tutor'; cohort: string; preferences: { tutorAccess: boolean; aiSummary: boolean; anonymizedStats: boolean } };
+type Profile = { id: string; email: string; name: string; role: 'student' | 'tutor'; cohort: string; isDemo: boolean; preferences: { tutorAccess: boolean; aiSummary: boolean; anonymizedStats: boolean } };
 type Daily = { id: string; entryDate: string; morningIntention?: string; morningAction?: string; morningConfidence?: number; morningObstacle?: string; morningHelp?: string; morningVisibility?: string; eveningAchievement?: string; eveningEvidence?: string; eveningLearning?: string; eveningObstacle?: string; eveningEnergy?: number; eveningHelp?: string; eveningVisibility?: string };
 type Goal = { id: string; domain: string; title: string; detail?: string; targetValue: number; currentValue: number; unit: string; weight: number; deadline?: string; visibility: string; progress: number };
 type Support = { id: string; type: string; status: string; reason: string; note?: string; sourceDate?: string; createdAt: string };
@@ -81,8 +81,9 @@ export default function AppClient() {
     <section className="main-stage">
       <header className="global-topbar"><button className="mobile-brand" onClick={() => setTab('today')}><span>光</span><b>智慧之光</b></button><div className="topbar-actions">
         {isTutor && <div className="role-switch"><button className={studentView ? 'active' : ''} onClick={() => setMode('student')}>我的成长</button><button className={!studentView ? 'active' : ''} onClick={() => setMode('tutor')}>导师工作台</button></div>}
-        <span className="privacy-status"><i /> 已保护</span><div className="account-chip"><b>{data.user.name.slice(0, 1)}</b><span>{data.user.name}<small>{data.user.role === 'tutor' ? '导师账户' : data.user.cohort}</small></span></div>
+        <span className="privacy-status"><i /> {data.user.isDemo ? '公开演示' : '已保护'}</span><div className="account-chip"><b>{data.user.name.slice(0, 1)}</b><span>{data.user.name}<small>{data.user.isDemo ? '共享演示账户' : data.user.role === 'tutor' ? '导师账户' : data.user.cohort}</small></span></div>
       </div></header>
+      {data.user.isDemo && <aside className="demo-banner"><b>公开演示环境</b><span>所有访客共享示例数据，请勿填写真实姓名、联系方式、聊天记录或其他个人信息。</span></aside>}
       {studentView ? <section className="student-page view-enter">
         {tab === 'today' && <TodayView data={data} open={setModal} go={setTab} />}
         {tab === 'goals' && <GoalsView data={data} onNew={() => setModal('new-goal')} onUpdate={(goal) => { setSelectedGoal(goal); setModal('update-goal'); }} />}
